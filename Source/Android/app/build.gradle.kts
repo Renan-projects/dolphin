@@ -34,7 +34,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "org.dolphinemu.dolphinemu"
+        applicationId = "org.renanprojects.beluga"
         minSdk = 24
         targetSdk = 36
 
@@ -67,7 +67,7 @@ android {
                 signingConfig = signingConfigs.getByName("release")
             }
 
-            resValue("string", "app_name_suffixed", "Dolphin Emulator")
+            resValue("string", "app_name_suffixed", "Beluga")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
@@ -79,7 +79,7 @@ android {
         // Signed by debug key disallowing distribution on Play Store.
         // Attaches "debug" suffix to version and package name, allowing installation alongside the release build.
         debug {
-            resValue("string", "app_name_suffixed", "Dolphin Debug")
+            resValue("string", "app_name_suffixed", "Beluga Debug")
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
             isJniDebuggable = true
@@ -103,7 +103,9 @@ android {
                     "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
                     // , "-DENABLE_GENERIC=ON"
                 )
-                abiFilters("arm64-v8a", "x86_64") //, "armeabi-v7a", "x86"
+                // Android TV cible quasi exclusivement de l'ARM 64 bits ; on ne
+                // construit que cet ABI pour réduire la taille de l'APK et le temps de build.
+                abiFilters("arm64-v8a") //, "x86_64", "armeabi-v7a", "x86"
 
                 // Uncomment the line below if you don't want to build the C++ unit tests
                 //targets("main", "hook_impl", "main_hook", "gsl_alloc_hook", "file_redirect_hook")
